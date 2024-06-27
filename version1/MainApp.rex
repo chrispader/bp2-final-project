@@ -1,5 +1,31 @@
+-- import JavaFX classes that we may use more often
+call bsf.import "javafx.fxml.FXMLLoader",                      "fx.FXMLLoader"
+call bsf.import "javafx.scene.Scene",                          "fx.Scene"
+call bsf.import "javafx.beans.property.SimpleStringProperty",  "fx.SimpleStringProperty"
+call bsf.import "javafx.beans.property.SimpleIntegerProperty", "fx.SimpleIntegerProperty"
+
+call bsf.import "javafx.collections.FXCollections",            "fx.FXCollections"
+call bsf.import "javafx.stage.Modality",                       "fx.Modality"
+
+rexxApp=.MainApp~new
+.my.app~mainApp=rexxApp        -- store the Rexx MainApp object in .my.app
+
+   -- instantiate the abstract JavaFX class, the abstract "start" method will be served by rexxApp
+jRexxApp=BsfCreateRexxProxy(rexxApp, ,"javafx.application.Application")
+
+signal on syntax
+   -- launch the application, invoke "start" and then stay up until the application closes
+jRexxApp~launch(jRexxApp~getClass, .nil)  -- need to use this version of launch in order to work
+call sysSleep 0.01                 -- let ooRexx clean up
+exit
+
+syntax:
+   co=condition("object")
+   say ppJavaExceptionChain(co, .true) -- display Java exception chain and stack trace of original Java exception
+   say " done. "~center(100, "-")
+   exit -1
+
 ::requires "BSF.CLS"
-::requires "json-rgf.cls"
 
 ::class MainApp
 
