@@ -169,11 +169,11 @@ syntax:
    -- create and save an ObservableList
   personData=.fx.FXCollections~observableArrayList
 
-   -- do we have a file save already, such that a "filePath" preference was set at the user's root node?
-  prefs=bsf.loadClass("java.util.prefs.Preferences")~userRoot   -- get the user's root preference node, tutorial part # 5
+   -- do we have a file save already, such that a "filePath" preference was set at the users root node?
+  prefs=bsf.loadClass("java.util.prefs.Preferences")~userRoot   -- get the users root preference node, tutorial part # 5
   personFilePath=prefs~get("filePath", .nil) -- get filePath preference, if any
 
-  /* if personFilePath<>.nil then
+  if personFilePath<>.nil then
   do
      if sysFileExists(personFilePath) then
      do
@@ -192,7 +192,7 @@ syntax:
   do
      say "no" pp("filePath") "preference found, creating dummy data..."
          -- this creates ooRexx Person objects that get stored as Java RexxProxy objects, to be used for the TableView
-     personData~add(.person~new("Hans", "Muster"))
+     /* personData~add(.person~new("Hans", "Muster"))
      personData~add(.person~new("Ruth", "Mueller"))
      personData~add(.person~new("Heinz", "Kurz"))
      personData~add(.person~new("Cornelia", "Meier"))
@@ -200,8 +200,8 @@ syntax:
      personData~add(.person~new("Lydia", "Kunz"))
      personData~add(.person~new("Anna", "Best"))
      personData~add(.person~new("Stefan", "Meier"))
-     personData~add(.person~new("Martin", "Mueller"))
-  end */
+     personData~add(.person~new("Martin", "Mueller")) */
+  end
 
 
    /* loads the fxml document defining the GUI elements, sets up a scene for it and shows it */
@@ -470,7 +470,7 @@ syntax:
      cityLabel       ~setText("")
      birthdayLabel   ~setText("")
   end
-  else   -- set Person's details
+  else   -- set Persons details
   do
      firstNameLabel  ~setText(p~firstName)
      lastNameLabel   ~setText(p~lastName)
@@ -488,7 +488,7 @@ syntax:
 
   if selectedIndex >= 0 then
   do
-     -- IMPORTANT: we must use bsf.invokeStrict() to become able to give explicitly the argument's type as otherwise
+     -- IMPORTANT: we must use bsf.invokeStrict() to become able to give explicitly the arguments type as otherwise
      --            it may be possible that the wrong "remove(Object)" method is used instead of "remove(int)" (both
      --            methods behave differntly):
      p=personTable~getItems~bsf.invokeStrict("remove", "int", selectedIndex) -- we want the remove method with the primitive int argument!
@@ -1001,7 +1001,7 @@ syntax:
      alert~setContentText(text)
      alert~showAndWait
   end
-  else  -- use BSF.CLS' .bsf.dialog utility class
+  else  -- use BSF.CLS .bsf.dialog utility class
   do
      -- .bsf.dialog is defined in BSF.CLS and uses swing
     .bsf.dialog~messageBox(text, "AddressApp", "information")
@@ -1281,7 +1281,7 @@ say "webViewControl~toString="pp(webViewControl~toString)
         currPrinter=jobPrinter
      end
 
-     webEngine~print(job)  -- using the WebView's WebEngine to print, which is able to do multiple page printings
+     webEngine~print(job)  -- using the WebViews WebEngine to print, which is able to do multiple page printings
      job~endJob
   end
 
@@ -1297,23 +1297,3 @@ say "webViewControl~toString="pp(webViewControl~toString)
   return .true
 syntax:     -- Rexx condition raised
   return .false
-
-
-
-/*
-      ------------------------ Apache Version 2.0 license -------------------------
-         Copyright 2016-2020 Rony G. Flatscher
-
-         Licensed under the Apache License, Version 2.0 (the "License");
-         you may not use this file except in compliance with the License.
-         You may obtain a copy of the License at
-
-             http://www.apache.org/licenses/LICENSE-2.0
-
-         Unless required by applicable law or agreed to in writing, software
-         distributed under the License is distributed on an "AS IS" BASIS,
-         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-         See the License for the specific language governing permissions and
-         limitations under the License.
-      -----------------------------------------------------------------------------
-*/

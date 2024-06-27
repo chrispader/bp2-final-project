@@ -1,4 +1,0 @@
-This Rexx application demonstrates how to implement in pure ooRexx everything that is demonstrated by the JavaFX tutorial
-<http://code.makery.ch/library/javafx-2-tutorial/> and <http://code.makery.ch/library/javafx-8-tutorial/>, as of 2016-12-04.
-To do so the ooRexx to Java bridge "BSF4ooRexx" needs to be installed.
-
