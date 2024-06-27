@@ -1,3 +1,8 @@
+.environment~my.app=.directory~new  -- directory to contain objects relevant to this application
+.my.app~bDebug=.false               /* if set to .true, "put_FXID_objects_into.my.app.rex" will show
+                                       all entries in ScriptContext Bindings on the console           */
+-- starting with JavaFX 8u40 true dialogs got introduced; taking advantage of them if running on Java 1.8 or higher
+
 -- import JavaFX classes that we may use more often
 call bsf.import "javafx.fxml.FXMLLoader",                      "fx.FXMLLoader"
 call bsf.import "javafx.scene.Scene",                          "fx.Scene"
@@ -10,7 +15,7 @@ call bsf.import "javafx.stage.Modality",                       "fx.Modality"
 rexxApp=.MainApp~new
 .my.app~mainApp=rexxApp        -- store the Rexx MainApp object in .my.app
 
-   -- instantiate the abstract JavaFX class, the abstract "start" method will be served by rexxApp
+-- instantiate the abstract JavaFX class, the abstract "start" method will be served by rexxApp
 jRexxApp=BsfCreateRexxProxy(rexxApp, ,"javafx.application.Application")
 
 signal on syntax
@@ -28,6 +33,8 @@ syntax:
 ::requires "BSF.CLS"
 
 ::class MainApp
+
+::attribute primaryStage   -- stores the primaryStage supplied via the start method by JavaFX
 
 ::method init
   expose incomeData expenseData primaryStage
