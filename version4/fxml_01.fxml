@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.XYChart?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<!-- the processing instruction (PI) defines the Java script engine named 'rexx'
-     to be used for executing code in this FXML file: running "fxml_01_controller.rex"
-     and the code in the 'onAction' event attribute for the Button element -->
+<!-- Processing instruction for using Rexx -->
 <?language rexx?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="400"
+<AnchorPane id="AnchorPane" prefHeight="400" prefWidth="600"
      xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-
      <children>
           <BarChart fx:id="incomeExpenseChart" prefWidth="600" prefHeight="400">
                <xAxis>
@@ -28,10 +20,6 @@
                </yAxis>
           </BarChart>
      </children>
-
-     <!-- comment: Rexx program that stores all fx:id objects in .local~birthdayStatistics.fxml
-     directory -->
      <fx:script source="put_FXID_objects_into.my.app.rex" />
-     <!-- call Rexx program, its public routine "buttonClicked" is known afterwards -->
      <fx:script source="fxml_01_controller.rex" />
 </AnchorPane>
