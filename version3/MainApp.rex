@@ -1047,7 +1047,7 @@ syntax:
   expose barChart
 
   use arg persons
-  -- monthCounter=bsf.createJavaArray("int.class", 12)   -- create Java array
+  -- monthCounter=bsf.createJavaArray("int.class", 12)
   monthCounter=.array~new(12)~~fill(0)
   do p over persons
      parse value p~birthDay with "-" month "-"

@@ -54,7 +54,7 @@ jrxApp~launch(jrxApp~getClass, .nil)
   use arg primaryStage
   primaryStage~setTitle("Income vs Expenses")
 
-  fxmlUrl=.bsf~new("java.net.URL", "file:fxml_01.fxml")
+  fxmlUrl=.bsf~new("java.net.URL", "file:RootLayout.fxml")
   rootNode=bsf.loadClass("javafx.fxml.FXMLLoader")~load(fxmlUrl)
 
   scene=.bsf~new("javafx.scene.Scene", rootNode)
