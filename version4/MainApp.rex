@@ -62,4 +62,4 @@ jrxApp~launch(jrxApp~getClass, .nil)
   primaryStage~show
 
   -- Initialize the controller with the mainApp
-  .IncomeExpenseOverviewController~new(mainApp)
+  /* .IncomeExpenseOverviewController~new(mainApp) */

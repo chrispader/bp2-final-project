@@ -3,15 +3,27 @@
 ::class IncomeExpenseOverviewController
 
 ::method init
-  expose incomeExpenseChart xAxis yAxis mainApp
+  expose incomeExpenseChart xAxis yAxis refreshButton mainApp
   use arg mainApp
 
   dir=.my.app~fxml_01.fxml
   incomeExpenseChart=dir~incomeExpenseChart
   xAxis=dir~xAxis
   yAxis=dir~yAxis
+  refreshButton=dir~refreshButton
+
+  -- Add event handler for refresh button
+  rp=BSFCreateRexxProxy(self, ,"javafx.event.EventHandler")
+  refreshButton~setOnAction(rp)
 
   self~populateChart()
+
+::method handle
+  expose refreshButton
+  use arg event
+
+  if event~source=refreshButton then
+    self~populateChart()
 
 ::method populateChart
   expose incomeExpenseChart xAxis yAxis mainApp
@@ -23,8 +35,8 @@
   -- Debug message to ensure loop entry
   say "Entering loop to add data to series."
 
-  do i=1 to mainApp~incomeData~length
-    monthName = "Month " || i
+  /* do i=0 to mainApp~incomeData~length-1
+    monthName = "Month " || (i + 1)
     -- Debug messages to trace data
     say "Creating data for month: " monthName
     say "Income: " mainApp~incomeData[i]
@@ -45,7 +57,7 @@
     -- Debug messages to confirm addition
     say "Added incomeDataPoint to incomeSeries."
     say "Added expenseDataPoint to expenseSeries."
-  end
+  end */
 
   -- Debug message to ensure data addition is completed
   say "Data addition to series completed."
