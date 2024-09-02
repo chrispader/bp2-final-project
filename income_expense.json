@@ -1,0 +1,20 @@
+{
+  "months": [
+    {
+      "income": 10,
+      "expense": 2
+    },
+    {
+      "income": 12,
+      "expense": 4
+    },
+    {
+      "income": 8,
+      "expense": 3
+    },
+    {
+      "income": 5,
+      "expense": 8
+    }
+  ]
+}
