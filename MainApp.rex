@@ -62,6 +62,7 @@ syntax:
   XYSeriesBuilder=bsf.loadClass("eu.hansolo.fx.charts.series.XYSeriesBuilder")
   Orientation=bsf.loadClass("javafx.geometry.Orientation")
   Position=bsf.loadClass("eu.hansolo.fx.charts.Position")
+  AxisBuilder=bsf.loadClass("eu.hansolo.fx.charts.AxisBuilder")
   GridBuilder=bsf.loadClass("eu.hansolo.fx.charts.GridBuilder")
 
   incomeSeries=XYSeriesBuilder~create~items(incomeItems)~build
@@ -73,14 +74,15 @@ syntax:
 
   lineChartPane=.bsf~new("eu.hansolo.fx.charts.XYPane", seriesList)
 
-  xAxis = bsf.loadClass("eu.hansolo.fx.charts.AxisBuilder")~create(Orientation~HORIZONTAL, Position~BOTTOM)~build
-  yAxis = bsf.loadClass("eu.hansolo.fx.charts.AxisBuilder")~create(Orientation~VERTICAL, Position~LEFT)~build
+  xAxis = AxisBuilder~create(Orientation~HORIZONTAL, Position~BOTTOM)~build
+  yAxis = AxisBuilder~create(Orientation~VERTICAL, Position~LEFT)~build
   grid = GridBuilder~create(xAxis, yAxis)~build
 
+  axisList=.bsf~new("java.util.ArrayList")
+  axisList~add(yAxis)
+  axisList~add(xAxis)
 
-  lineChart=.bsf~new("eu.hansolo.fx.charts.XYChart")
-  /* lineChart~addXYPane(lineChartPane) */
-  /* lineChart~setGrid(grid) */
+  lineChart=.bsf~new("eu.hansolo.fx.charts.XYChart", lineChartPane, grid, yAxis, xAxis)
   lineChartContainer~getChildren~add(lineChart)
 
   say "Data set on chart successfully."
