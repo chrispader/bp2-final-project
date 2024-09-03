@@ -17,7 +17,7 @@ exit
 
 syntax:
   co=condition("object")
-  say ppJavaExceptionChain(co, .true) -- display Java exception chain and stack trace of original Java exception
+  say ppJavaExceptionChain(co, .true)
   say " done. "~center(100, "-")
   exit -1
 
@@ -50,22 +50,38 @@ syntax:
   data=.json~fromJsonFile("income_expense.json")
   monthData = data["months"]
 
-  incomeItems = .array~new
-  expenseItems = .array~new
+  incomeItems=.bsf~new("java.util.ArrayList")
+  expenseItems=.bsf~new("java.util.ArrayList")
   do i = 1 to monthData~size
       incomeItem=.bsf~new("eu.hansolo.fx.charts.data.XYChartItem", i, monthData[i]["income"], months[i], months[i])
       expenseItem=.bsf~new("eu.hansolo.fx.charts.data.XYChartItem", i, monthData[i]["expense"], months[i], months[i])
-      incomeItems~append(incomeItem)
-      expenseItems~append(expenseItem)
+      incomeItems~add(incomeItem)
+      expenseItems~add(expenseItem)
   end
 
-  incomeSeries=bsf.loadClass("eu.hansolo.fx.charts.series.XYSeriesBuilder")~create
-  expenseSeries=bsf.loadClass("eu.hansolo.fx.charts.series.XYSeriesBuilder")~create
-  lineChartPane=.bsf~new("eu.hansolo.fx.charts.XYPane", .list~of(incomeSeries, expenseSeries))
+  XYSeriesBuilder=bsf.loadClass("eu.hansolo.fx.charts.series.XYSeriesBuilder")
+  Orientation=bsf.loadClass("javafx.geometry.Orientation")
+  Position=bsf.loadClass("eu.hansolo.fx.charts.Position")
+  GridBuilder=bsf.loadClass("eu.hansolo.fx.charts.GridBuilder")
 
-  lineChart=.bsf~new("eu.hansolo.fx.charts.XYChart", lineChartPane)
-  stackPane=.bsf~new("javafx.scene.layout.StackPane", lineChart)
-  lineChartContainer~getChildren~setAll(stackPane)
+  incomeSeries=XYSeriesBuilder~create~items(incomeItems)~build
+  expenseSeries=XYSeriesBuilder~create~items(expenseItems)~build
+
+  seriesList=.bsf~new("java.util.ArrayList")
+  seriesList~add(incomeSeries)
+  seriesList~add(expenseSeries)
+
+  lineChartPane=.bsf~new("eu.hansolo.fx.charts.XYPane", seriesList)
+
+  xAxis = bsf.loadClass("eu.hansolo.fx.charts.AxisBuilder")~create(Orientation~HORIZONTAL, Position~BOTTOM)~build
+  yAxis = bsf.loadClass("eu.hansolo.fx.charts.AxisBuilder")~create(Orientation~VERTICAL, Position~LEFT)~build
+  grid = GridBuilder~create(xAxis, yAxis)~build
+
+
+  lineChart=.bsf~new("eu.hansolo.fx.charts.XYChart")
+  /* lineChart~addXYPane(lineChartPane) */
+  /* lineChart~setGrid(grid) */
+  lineChartContainer~getChildren~add(lineChart)
 
   say "Data set on chart successfully."
 
