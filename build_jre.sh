@@ -1,5 +1,6 @@
-export JRE_DIR="./jre"
-export LIB_DIR="./lib"
+dir=$(echo "$PWD")
+export JRE_DIR="$dir/jre"
+export LIB_DIR="$dir/lib"
 export FX_DIR="$LIB_DIR/javafx-jmods-22.0.2"
 
 ./clean_jre.sh
