@@ -95,7 +95,7 @@ syntax:
   lineChart=.XYChart~new(lineChartPane, grid, yAxis, xAxis)
   lineChartContainer~getChildren~add(lineChart)
 
-  say "Data set on chart successfully."
+  say "Chart data successfully populated."
 
 ::routine refreshChart
   populateChart()
