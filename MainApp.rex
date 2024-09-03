@@ -1,5 +1,18 @@
 #!/usr/bin/env rexx
 
+call bsf.import "java.net.URL",                                 "URL"
+call bsf.import "java.util.ArrayList",                          "ArrayList"
+call bsf.import "javafx.fxml.FXMLLoader",                       "FXMLLoader"
+call bsf.import "javafx.scene.Scene",                           "Scene"
+/* call bsf.import "javafx.geometry.Orientation",                  "Orientation" */
+call bsf.import "eu.hansolo.fx.charts.XYChart",                 "XYChart"
+call bsf.import "eu.hansolo.fx.charts.XYPane",                  "XYPane"
+/* call bsf.import "eu.hansolo.fx.charts.Position",                "Position" */
+call bsf.import "eu.hansolo.fx.charts.AxisBuilder",             "AxisBuilder"
+call bsf.import "eu.hansolo.fx.charts.GridBuilder",             "GridBuilder"
+call bsf.import "eu.hansolo.fx.charts.data.XYChartItem",        "XYChartItem"
+call bsf.import "eu.hansolo.fx.charts.series.XYSeriesBuilder",  "XYSeriesBuilder"
+
 parse source  . . pgm
 call directory filespec('L', pgm)   -- change to the directory where the program resides
 
@@ -31,10 +44,10 @@ syntax:
   use arg primaryStage
   primaryStage~setTitle("Income vs Expenses")
 
-  fxmlUrl=.bsf~new("java.net.URL", "file:RootLayout.fxml")
-  rootNode=bsf.loadClass("javafx.fxml.FXMLLoader")~load(fxmlUrl)
+  fxmlUrl=.URL~new("file:RootLayout.fxml")
+  rootNode=.FXMLLoader~load(fxmlUrl)
 
-  scene=.bsf~new("javafx.scene.Scene", rootNode)
+  scene=.Scene~new(rootNode)
   primaryStage~setScene(scene)
   primaryStage~show
 
@@ -50,39 +63,36 @@ syntax:
   data=.json~fromJsonFile("income_expense.json")
   monthData = data["months"]
 
-  incomeItems=.bsf~new("java.util.ArrayList")
-  expenseItems=.bsf~new("java.util.ArrayList")
+  incomeItems=.ArrayList~new()
+  expenseItems=.ArrayList~new()
   do i = 1 to monthData~size
-      incomeItem=.bsf~new("eu.hansolo.fx.charts.data.XYChartItem", i, monthData[i]["income"], months[i], months[i])
-      expenseItem=.bsf~new("eu.hansolo.fx.charts.data.XYChartItem", i, monthData[i]["expense"], months[i], months[i])
+      incomeItem=.XYChartItem~new(i, monthData[i]["income"], months[i], months[i])
+      expenseItem=.XYChartItem~new(i, monthData[i]["expense"], months[i], months[i])
       incomeItems~add(incomeItem)
       expenseItems~add(expenseItem)
   end
 
-  XYSeriesBuilder=bsf.loadClass("eu.hansolo.fx.charts.series.XYSeriesBuilder")
-  Orientation=bsf.loadClass("javafx.geometry.Orientation")
-  Position=bsf.loadClass("eu.hansolo.fx.charts.Position")
-  AxisBuilder=bsf.loadClass("eu.hansolo.fx.charts.AxisBuilder")
-  GridBuilder=bsf.loadClass("eu.hansolo.fx.charts.GridBuilder")
+  incomeSeries=.XYSeriesBuilder~create~items(incomeItems)~build
+  expenseSeries=.XYSeriesBuilder~create~items(expenseItems)~build
 
-  incomeSeries=XYSeriesBuilder~create~items(incomeItems)~build
-  expenseSeries=XYSeriesBuilder~create~items(expenseItems)~build
-
-  seriesList=.bsf~new("java.util.ArrayList")
+  seriesList=.ArrayList~new()
   seriesList~add(incomeSeries)
   seriesList~add(expenseSeries)
 
-  lineChartPane=.bsf~new("eu.hansolo.fx.charts.XYPane", seriesList)
+  lineChartPane=.XYPane~new(seriesList)
 
-  xAxis = AxisBuilder~create(Orientation~HORIZONTAL, Position~BOTTOM)~build
-  yAxis = AxisBuilder~create(Orientation~VERTICAL, Position~LEFT)~build
-  grid = GridBuilder~create(xAxis, yAxis)~build
+  Orientation=bsf.loadClass("javafx.geometry.Orientation")
+  Position=bsf.loadClass("eu.hansolo.fx.charts.Position")
 
-  axisList=.bsf~new("java.util.ArrayList")
+  xAxis = .AxisBuilder~create(Orientation~HORIZONTAL, Position~BOTTOM)~build
+  yAxis = .AxisBuilder~create(Orientation~VERTICAL, Position~LEFT)~build
+  grid = .GridBuilder~create(xAxis, yAxis)~build
+
+  axisList=.ArrayList~new()
   axisList~add(yAxis)
   axisList~add(xAxis)
 
-  lineChart=.bsf~new("eu.hansolo.fx.charts.XYChart", lineChartPane, grid, yAxis, xAxis)
+  lineChart=.XYChart~new(lineChartPane, grid, yAxis, xAxis)
   lineChartContainer~getChildren~add(lineChart)
 
   say "Data set on chart successfully."
