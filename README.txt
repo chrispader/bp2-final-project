@@ -28,7 +28,12 @@ Führen Sie den Installer aus und folgen Sie den Anweisungen.
 
 -> JavaFX & Han Solo Chart
 
-Die benötigten Java-Bibliotheken für JavaFX und die Chart-Library "Han Solo Chart" sind im "lib" Ordner mitgeliefert und werden automatisch beim Ausführen App mit der Custom-JRE integriert.
+Sie müssen folgende Libraries manuell in dem Projektordner unter folgenden Sub-Ordnern speichern:
+
+HanSolo Charts JAR -> “lib/hansolo/charts.jar” (https://repo1.maven.org/maven2/eu/hansolo/fx/charts/21.0.19/charts-21.0.19.jar)
+HanSolo Toolbox JAR -> “lib/hansolo/toolbox.jar” (https://repo1.maven.org/maven2/eu/hansolo/toolbox/21.0.11/toolbox-21.0.11.jar)
+HanSolo ToolboxFX JAR -> “lib/hansolo/toolboxfx.jar” (https://repo1.maven.org/maven2/eu/hansolo/toolboxfx/21.0.7/toolboxfx-21.0.7.jar)
+JavaFX JMod -> “lib/javafx-jmods-22.0.2” (https://gluonhq.com/products/javafx/) (hier das jeweilige Betriebssystem/CPU-Architektur und Type “jmods” auswählen; Version 22.0.2)
 
 ## Ausführen der Anwendung
 
