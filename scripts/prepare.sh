@@ -7,4 +7,4 @@ export FX_DIR="$LIB_DIR/javafx-jmods-22.0.2"
 
 jlink --module-path $JAVA_HOME/jmods:$FX_DIR --add-modules java.base,java.logging,javafx.base,javafx.swing,javafx.controls,javafx.graphics,javafx.fxml --output $JRE_DIR
 
-gradle download
+./gradlew download
