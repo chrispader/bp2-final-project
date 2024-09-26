@@ -7,16 +7,10 @@ call bsf.import "javafx.fxml.FXMLLoader",                       "FXMLLoader"
 call bsf.import "javafx.scene.Scene",                           "Scene"
 
 call bsf.import "io.fair_acc.chartfx.XYChart",                            "XYChart"
-call bsf.import "io.fair_acc.chartfx.axes.AxisLabelOverlapPolicy",        "AxisLabelOverlapPolicy"
 call bsf.import "io.fair_acc.chartfx.axes.spi.CategoryAxis",              "CategoryAxis"
 call bsf.import "io.fair_acc.chartfx.axes.spi.DefaultNumericAxis",        "DefaultNumericAxis"
-call bsf.import "io.fair_acc.chartfx.plugins.EditAxis",                   "EditAxis"
-call bsf.import "io.fair_acc.chartfx.plugins.ParameterMeasurements",      "ParameterMeasurements"
-call bsf.import "io.fair_acc.chartfx.plugins.Zoomer",                     "Zoomer"
 call bsf.import "io.fair_acc.chartfx.renderer.LineStyle",                 "LineStyle"
-call bsf.import "io.fair_acc.chartfx.renderer.spi.ErrorDataSetRenderer",  "ErrorDataSetRenderer"
 call bsf.import "io.fair_acc.dataset.spi.DefaultErrorDataSet",            "DefaultErrorDataSet"
-call bsf.import "io.fair_acc.dataset.testdata.spi.RandomDataGenerator",   "RandomDataGenerator"
 call bsf.import "io.fair_acc.chartfx.ui.geometry.Side",                   "Side"
 
 parse source  . . pgm
@@ -73,26 +67,28 @@ syntax:
   data=.json~fromJsonFile("income_expense.json")
   monthData = data["months"]
 
-  xAxis = .CategoryAxis~new("months")
+  xAxis = .CategoryAxis~new("Months")
   xAxis~setSide(.Side~BOTTOM)
-  yAxis = .DefaultNumericAxis~new("amount")
+
+  yAxis = .DefaultNumericAxis~new("Amount")
   yAxis~setSide(.Side~LEFT)
-  /* lineChart = .XYChart~new(xAxis, yAxis) */
+
   lineChart = .XYChart~new
   lineChart~getAxes~add(xAxis)
   lineChart~getAxes~add(yAxis)
 
-  /* xAxis~setCategories(monthsArrayList) */
-
-  dataSet = .DefaultErrorDataSet~new("incomeExpense")
+  incomeDataSet = .DefaultErrorDataSet~new("Income")
   do i = 1 to monthData~size
-    dataSet~add(i-1, monthData[i]["income"], 0.0, 0.1)
+    incomeDataSet~add(i-1, monthData[i]["income"], 0.0, 0.1)
   end
 
-  lineChart~getDatasets~add(dataSet)
+  expenseDataSet = .DefaultErrorDataSet~new("Expenses")
+  do i = 1 to monthData~size
+    expenseDataSet~add(i-1, monthData[i]["expense"], 0.0, 0.1)
+  end
+
+  lineChart~getDatasets~add(incomeDataSet)
+  lineChart~getDatasets~add(expenseDataSet)
   lineChartContainer~getChildren~add(lineChart)
 
   say "Chart data successfully populated."
-
-::routine refreshChart
-  populateChart()
