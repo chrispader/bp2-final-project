@@ -1,0 +1,6 @@
+rootProject.name = 'financeinsight'
+
+include 'financeinsight'
+
+// If your projects are in subdirectories
+project(':financeinsight').projectDir = file('financeinsight')
