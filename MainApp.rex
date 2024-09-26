@@ -1,22 +1,32 @@
 #!/usr/bin/env rexx
 
 call bsf.import "java.net.URL",                                 "URL"
+call bsf.import "java.util.Arrays",                             "Arrays"
 call bsf.import "java.util.ArrayList",                          "ArrayList"
 call bsf.import "javafx.fxml.FXMLLoader",                       "FXMLLoader"
 call bsf.import "javafx.scene.Scene",                           "Scene"
-/* call bsf.import "javafx.geometry.Orientation",                  "Orientation" */
-call bsf.import "eu.hansolo.fx.charts.XYChart",                 "XYChart"
-call bsf.import "eu.hansolo.fx.charts.XYPane",                  "XYPane"
-/* call bsf.import "eu.hansolo.fx.charts.Position",                "Position" */
-call bsf.import "eu.hansolo.fx.charts.AxisBuilder",             "AxisBuilder"
-call bsf.import "eu.hansolo.fx.charts.GridBuilder",             "GridBuilder"
-call bsf.import "eu.hansolo.fx.charts.data.XYChartItem",        "XYChartItem"
-call bsf.import "eu.hansolo.fx.charts.series.XYSeriesBuilder",  "XYSeriesBuilder"
+
+call bsf.import "io.fair_acc.chartfx.XYChart",                            "XYChart"
+call bsf.import "io.fair_acc.chartfx.axes.AxisLabelOverlapPolicy",        "AxisLabelOverlapPolicy"
+call bsf.import "io.fair_acc.chartfx.axes.spi.CategoryAxis",              "CategoryAxis"
+call bsf.import "io.fair_acc.chartfx.axes.spi.DefaultNumericAxis",        "DefaultNumericAxis"
+call bsf.import "io.fair_acc.chartfx.plugins.EditAxis",                   "EditAxis"
+call bsf.import "io.fair_acc.chartfx.plugins.ParameterMeasurements",      "ParameterMeasurements"
+call bsf.import "io.fair_acc.chartfx.plugins.Zoomer",                     "Zoomer"
+call bsf.import "io.fair_acc.chartfx.renderer.LineStyle",                 "LineStyle"
+call bsf.import "io.fair_acc.chartfx.renderer.spi.ErrorDataSetRenderer",  "ErrorDataSetRenderer"
+call bsf.import "io.fair_acc.dataset.spi.DefaultErrorDataSet",            "DefaultErrorDataSet"
+call bsf.import "io.fair_acc.dataset.testdata.spi.RandomDataGenerator",   "RandomDataGenerator"
+call bsf.import "io.fair_acc.chartfx.ui.geometry.Side",                   "Side"
 
 parse source  . . pgm
 call directory filespec('L', pgm)   -- change to the directory where the program resides
 
 months = .array~of("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+monthsArrayList = .ArrayList~new
+do i = 1 to months~size
+  monthsArrayList~add(months[i])
+end
 
 .environment~my.app=.directory~new
 rxApp=.RexxApplication~new
@@ -63,36 +73,23 @@ syntax:
   data=.json~fromJsonFile("income_expense.json")
   monthData = data["months"]
 
-  incomeItems=.ArrayList~new()
-  expenseItems=.ArrayList~new()
+  xAxis = .CategoryAxis~new("months")
+  xAxis~setSide(.Side~BOTTOM)
+  yAxis = .DefaultNumericAxis~new("amount")
+  yAxis~setSide(.Side~LEFT)
+  /* lineChart = .XYChart~new(xAxis, yAxis) */
+  lineChart = .XYChart~new
+  lineChart~getAxes~add(xAxis)
+  lineChart~getAxes~add(yAxis)
+
+  /* xAxis~setCategories(monthsArrayList) */
+
+  dataSet = .DefaultErrorDataSet~new("incomeExpense")
   do i = 1 to monthData~size
-      incomeItem=.XYChartItem~new(i, monthData[i]["income"], months[i], months[i])
-      expenseItem=.XYChartItem~new(i, monthData[i]["expense"], months[i], months[i])
-      incomeItems~add(incomeItem)
-      expenseItems~add(expenseItem)
+    dataSet~add(i-1, monthData[i]["income"], 0.0, 0.1)
   end
 
-  incomeSeries=.XYSeriesBuilder~create~items(incomeItems)~build
-  expenseSeries=.XYSeriesBuilder~create~items(expenseItems)~build
-
-  seriesList=.ArrayList~new()
-  seriesList~add(incomeSeries)
-  seriesList~add(expenseSeries)
-
-  lineChartPane=.XYPane~new(seriesList)
-
-  Orientation=bsf.loadClass("javafx.geometry.Orientation")
-  Position=bsf.loadClass("eu.hansolo.fx.charts.Position")
-
-  xAxis = .AxisBuilder~create(Orientation~HORIZONTAL, Position~BOTTOM)~build
-  yAxis = .AxisBuilder~create(Orientation~VERTICAL, Position~LEFT)~build
-  grid = .GridBuilder~create(xAxis, yAxis)~build
-
-  axisList=.ArrayList~new()
-  axisList~add(yAxis)
-  axisList~add(xAxis)
-
-  lineChart=.XYChart~new(lineChartPane, grid, yAxis, xAxis)
+  lineChart~getDatasets~add(dataSet)
   lineChartContainer~getChildren~add(lineChart)
 
   say "Chart data successfully populated."
