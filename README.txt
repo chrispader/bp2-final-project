@@ -26,6 +26,8 @@ Installation:
 Besuchen Sie Eclipse Temurin JDK Downloads (https://adoptium.net/de/temurin/releases/) oder die JDK eines anderen Publishers und laden Sie die passende Version für Ihr Betriebssystem herunter.
 Führen Sie den Installer aus und folgen Sie den Anweisungen.
 
+## Vorbereiten der Anwendungsumgebung
+
 -> JavaFX & ChartFX
 
 Wir verwenden JavaFX um das GUI anzuzeigen. Um ein Diagram zu zeichnen, verwenden wir "ChartFX". Sowohl JavaFX als auch ChartFX müssen vor dem Ausführen der Anwendung geladen bzw. in die Custom JRE geladen werden.
