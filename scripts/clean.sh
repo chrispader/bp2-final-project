@@ -1,4 +1,5 @@
-export JRE_DIR="./jre"
-export LIB_DIR="./lib"
+cd "$(dirname "${BASH_SOURCE[0]}")"
+source ./env.sh
+
 
 rm -rf $JRE_DIR $LIB_DIR/*.jar
