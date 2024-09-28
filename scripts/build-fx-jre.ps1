@@ -15,4 +15,4 @@ if (-Not (Test-Path -Path $env:JAVAFX_DIR)) {
 jlink --module-path "$env:JAVA_HOME\jmods;$env:JAVAFX_DIR" --add-modules "java.base,java.logging,javafx.base,javafx.swing,javafx.controls,javafx.graphics,javafx.fxml" --output "$env:JRE_DIR"
 
 # Call Gradle to download dependencies
-Start-Process -FilePath ".\gradlew.bat" -ArgumentList "download" -NoNewWindow
+Start-Process -FilePath "$SCRIPT_DIR\..\gradlew.bat" -ArgumentList "download" -NoNewWindow

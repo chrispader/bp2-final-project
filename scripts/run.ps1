@@ -1,9 +1,6 @@
 # Get the directory of the current script
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
-# Change to the script directory
-Set-Location -Path $SCRIPT_DIR
-
 . "$SCRIPT_DIR\env.ps1"
 
 # Check if JRE_DIR exists
@@ -17,4 +14,4 @@ if (Test-Path -Path $env:JRE_DIR) {
 $env:BSF4Rexx_JavaStartupOptions = "-cp $env:CLASSPATH;$env:LIB_DIR\*"
 $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 
-Start-Process "./rexxj.sh" -ArgumentList "MainApp.rex" -NoNewWindow
+Start-Process "rexxj.cmd" -ArgumentList "../MainApp.rex" -NoNewWindow

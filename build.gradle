@@ -1,7 +1,5 @@
 plugins {
     id 'base'
-    // id 'java'
-    // id 'application'
 }
 
 repositories {
@@ -20,23 +18,3 @@ task download(type: Copy) {
     from configurations.toCopy
     into 'lib'
 }
-
-// task copyDependencies(type: Copy) {
-//     description = 'Copy dependencies to the local libs directory'
-//     from configurations.runtimeClasspath
-//     into "$projectDir/libs"
-// }
-
-// tasks.build.dependsOn copyDependencies
-
-// task runRexx(type: Exec) {
-//     description = 'Runs the ooRexx application'
-//     group = 'Execution'
-//     commandLine 'rexxj.sh', 'src/MainApp.rex'
-// }
-
-// clean {
-//     delete fileTree(dir: 'build', include: '**/*')
-// }
-
-// defaultTasks 'runRexx'
