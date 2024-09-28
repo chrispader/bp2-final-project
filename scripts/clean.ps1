@@ -8,5 +8,10 @@ Set-Location -Path $SCRIPT_DIR
 . "$SCRIPT_DIR\env.ps1"
 
 # Delete the JRE directory and all .jar files in the LIB_DIR
-Remove-Item -Recurse -Force -Path $env:JRE_DIR
-Remove-Item -Force -Path (Join-Path $env:LIB_DIR "*.jar")
+if (Test-Path -Path $env:JRE_DIR) {
+  Remove-Item -Recurse -Force -Path $env:JRE_DIR
+}
+
+if (Test-Path -Path $env:LIB_DIR) {
+  Remove-Item -Force -Path (Join-Path $env:LIB_DIR "*.jar")
+}
