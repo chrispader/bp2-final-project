@@ -2,9 +2,10 @@
 
 @echo off
 
-cd /d "%~dp0"
+set SCRIPT_DIR=%~dp0
+cd /d "%SCRIPT_DIR%"
 
-call env.bat
-call clean.bat
+call "%SCRIPT_DIR%env.bat"
+call "%SCRIPT_DIR%clean.bat"
 
 jlink --module-path "%JAVA_HOME%\jmods;%JAVAFX_DIR%" --add-modules java.base,java.logging,javafx.base,javafx.swing,javafx.controls,javafx.graphics,javafx.fxml --output %JRE_DIR%
