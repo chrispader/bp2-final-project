@@ -11,7 +11,7 @@ if (Test-Path -Path $env:JRE_DIR) {
     Write-Host "No custom JRE found, using default JAVA_HOME"
 }
 
-$env:BSF4Rexx_JavaStartupOptions = "-cp $env:CLASSPATH;$env:LIB_DIR\*"
+$env:BSF4Rexx_JavaStartupOptions = "-cp `"$env:CLASSPATH`";`"$env:LIB_DIR\*`""
 $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 
 Start-Process "rexxj.cmd" -ArgumentList "../MainApp.rex" -NoNewWindow
