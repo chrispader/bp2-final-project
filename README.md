@@ -53,7 +53,7 @@ Unix/Linux:
 
 Windows:
 ```bat
-./scripts/build-fx-jre.bat
+./scripts/build-fx-jre.ps1
 ```
 
 ### ChartFX
@@ -71,7 +71,7 @@ Unix/Linux:
 
 Windows:
 ```bat
-./gradlew.bat download
+./gradlew.ps1 download
 ```
 
 ## Ausführen der Anwendung
@@ -85,7 +85,7 @@ Unix/Linux:
 
 Windows:
 ```bat
-./scripts/run.bat
+./scripts/run.ps1
 ```
 
 Dabei sollte sich ein JavaFX Fenster mit einer Überschrift und einem Diagram erscheinen. Das Chart zeigt die Einnahmen und Ausgaben (einer Person) pro Monat dar, die aus dem JSON File "income_expense.json" ausgelesen wurden.
@@ -101,7 +101,7 @@ Unix/Linux:
 
 Windows:
 ```bat
-./scripts/run.bat
+./scripts/run.ps1
 ```
 
 ## Weitere Informationen
