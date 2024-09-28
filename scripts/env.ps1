@@ -1,7 +1,5 @@
 # Get the directory of the current script
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Definition
-
-# Set ROOT_DIR to parent directory of the current script
 $ROOT_DIR = Join-Path $SCRIPT_DIR ".."
 
 # Set environment variables
