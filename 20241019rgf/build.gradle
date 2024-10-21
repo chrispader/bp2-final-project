@@ -1,0 +1,20 @@
+plugins {
+    id 'base'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    toCopy
+}
+
+dependencies {
+    toCopy 'io.fair-acc:chartfx:11.3.1'
+}
+
+task download(type: Copy) {
+    from configurations.toCopy
+    into 'lib'
+}

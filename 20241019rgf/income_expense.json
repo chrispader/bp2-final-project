@@ -1,0 +1,52 @@
+{
+  "months": [
+    {
+      "income": 10,
+      "expense": 2
+    },
+    {
+      "income": 12,
+      "expense": 4
+    },
+    {
+      "income": 14,
+      "expense": 5
+    },
+    {
+      "income": 12,
+      "expense": 4
+    },
+    {
+      "income": 15,
+      "expense": 6
+    },
+    {
+      "income": 18,
+      "expense": 8
+    },
+    {
+      "income": 18,
+      "expense": 7
+    },
+    {
+      "income": 20,
+      "expense": 10
+    },
+    {
+      "income": 22,
+      "expense": 6
+    },
+    {
+      "income": 19,
+      "expense": 10
+    },
+    {
+      "income": 15,
+      "expense": 17
+    },
+    {
+      "income": 22,
+      "expense": 22
+    }
+  ]
+}
