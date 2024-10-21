@@ -1,5 +1,12 @@
 <!-- This file is best viewed as Markdown -->
 
+Anmerkung: Vor dem Verwenden und Ausführen dieses Projekts müssen einige Dateien umbenannt werden, da dieses Projekt sonst nicht über Email verschickt werden kann. Dazu muss jeweils einfach nur die Endung ".txt" entfernt werden.
+
+- Alle Scripts im "scripts" Ordner
+- "gradlew.txt"
+- "gradlew.bat.txt"
+- "gradle/wrapper/gradle-wrapper.jar.txt"
+
 # FinanceInsight - BP2 Abschlussprojekt der Gruppe 9
 
 FinanceInsight ist eine Finanzmanagement-Anwendung zur Verfolgung und Organisation persönlicher Finanzen.
