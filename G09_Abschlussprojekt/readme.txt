@@ -5,7 +5,14 @@ Voraussetzung für das erfolgreiche Ausführen dieses Projekts ist:
 - ooRexx 5.1 installiert [1]
 - Java mit JavaFX, ab Version 21 installiert [2]
 
-Das Projekt ausf�hren:
+Anmerkung: Vor dem Verwenden und Ausführen dieses Projekts müssen einige Dateien umbenannt werden, da dieses Projekt sonst nicht über Email verschickt werden kann. Dazu muss jeweils einfach nur die Endung ".txt" entfernt werden.
+
+- "gradlew.txt"
+- "gradlew.bat.txt"
+- "gradle/wrapper/gradle-wrapper.jar.txt"
+- "run.rex.txt"
+
+Das Projekt ausführen:
 
         - zip-Archiv auspacken und in das Verzeichnis wechseln
 
